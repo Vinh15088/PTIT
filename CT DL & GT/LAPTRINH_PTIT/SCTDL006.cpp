@@ -1,27 +1,29 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int n; 
-vector<string> S;
-
-void Try(int k, int sum, string s){
-    for(int i=k; i>=1; i--){
-        if(sum == n) {
-            s.pop_back();
-            S.push_back("(" + s + ")");
-            return;
+void Try(int n, int k, vector<int> a){
+    if(k == 0) {
+        cout << "(";
+        for(int i=0; i<a.size()-1; i++){
+            cout << a[i];
         }
-        else if(sum < n) Try(i, sum+i, s + to_string(i));
+        cout << a.back() << ")";
+    }
+
+    for(int i=n; i>=1; i--){
+        if(k >= i){
+            a.push_back(i);
+            Try(i, k-i, a);
+            a.pop_back();
+        }
     }
 }
 
 int main(){
     int t; cin >> t;
     while(t--){
-        cin >> n;
-        S.clear();
-        Try(n, 0, "");
-        for(auto c:S) cout << c;
+        int n; cin >> n;
+        Try(n, n, {});
         cout << endl;
     }
 }
