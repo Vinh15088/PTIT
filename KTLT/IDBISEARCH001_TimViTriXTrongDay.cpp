@@ -17,7 +17,7 @@ void solve(){
         // Muốn đưa ra vị trí là số nguyên thì lấy kết quả hàm trừ đi iterator a[0]
         if(a[pos] != num) cout << 0 << " ";
         else cout << pos + 1 << " ";
-        cout << pos << endl;
+        // cout << pos << endl;
     }
 }
 int main(){
