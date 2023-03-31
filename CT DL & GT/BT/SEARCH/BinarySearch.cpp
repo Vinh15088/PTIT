@@ -13,7 +13,7 @@ int BinarySearch(int a[], int l, int r, int x){
 
 int main(){
     int a[] = {1,2,3,4,5,6,7,8};
-    int x = 5;
+    int x = 2;
     int n = sizeof(a)/sizeof(a[0]);
 
     if(BinarySearch(a,0,n-1,x) == -1) cout << "Not present in array";
