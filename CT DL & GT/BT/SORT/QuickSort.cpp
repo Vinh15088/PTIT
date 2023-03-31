@@ -24,9 +24,10 @@ int Partition2(int a[], int left, int right){
         do{
             ++i;
         }while(a[i] < pivot);
-        do{
+       do{
             --j;
         }while(a[j] > pivot);
+
         if(i<j) swap(a[i], a[j]);
         else return j;
     }
@@ -58,7 +59,7 @@ void Print(int a[], int n){
 }
 
 int main(){
-    int a[] = {100, 10, 92, 8, 15, 47, 65};
+    int a[] = {50, 100, 10, 92, 8, 15, 47, 65};
     int n = sizeof(a)/sizeof(a[0]);
     QuickSort2(a,0,n-1);
     Print(a,n);
