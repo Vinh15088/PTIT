@@ -5,8 +5,8 @@ void Heapify(int a[], int n, int i){
     int largest = i;
     int l = 2*i+1;
     int r = 2*i+2;
-    if(l<n && a[l] > a[largest]) largest = l;
-    if(r<n && a[r] > a[largest]) largest = r;
+    if(l<n && a[l] < a[largest]) largest = l; // doi dau sang min heap
+    if(r<n && a[r] < a[largest]) largest = r; // doi dau sang min heap
     if(largest != i) {
         swap(a[i], a[largest]);
         Heapify(a,n,largest);
@@ -14,7 +14,7 @@ void Heapify(int a[], int n, int i){
 }
 
 void HeapSort(int a[], int n){
-    // xay dung max heap; tai nhung nut khong phai lá
+    // xay dung min heap; tai nhung nut khong phai lá
     for(int i=n/2 - 1; i>=0; i--) Heapify(a,n,i);
 
     // xet tu chi so cuoi cung, 
