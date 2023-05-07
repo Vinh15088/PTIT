@@ -1,31 +1,30 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+void reverseStack(stack<int>& st){
+    if(st.empty()) return;
+    int x = st.top(); st.pop();
+    reverseStack(st);
+    st.push(x);
+}
+
 int main(){
     int t; cin >> t;
+    cin.ignore();
     while(t--){
-        string s; cin >> s;
-        for(int i=0; i<s.length(); i++){
-            if(s[i] >= 'A' && s[i] <= 'Z') {
-                s[i] += 32;
-            }
+        stack<int> st;
+        string s;
+        getline(cin, s);
+        stringstream ss(s);
+        int n; 
+        while(ss >> n){
+            st.push(n);
         }
-        stack<char> st;
-        int pos;
-        for(int i=0; i<s.length(); i++){
-            if(s[i] == 'a') {
-                st.push(s[i]);
-                pos = i;
-                break;
-            }
+        reverseStack(st);
+        while(!st.empty()){
+            cout << st.top() << " "; st.pop();
         }
-        for(int i=pos; i<s.length(); i++){
-            char tmp = st.top();
-            tmp = tmp + 1;
-            if(s[i] == tmp) st.push(s[i]);
-        }
-        if(st.size() == 0) cout << 0 << endl;
-        else cout << st.size() << endl;
+        cout << endl;
     }
     return 0;
 }

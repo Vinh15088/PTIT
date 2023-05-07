@@ -1,21 +1,20 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
+
 int main(){
-    int n, m; cin >> n >> m;
-    int a[n];
-    for(int i = 0; i < n; ++i){
-        cin >> a[i];
+    int n; cin >> n;
+    int dp[1001][1001] = {0};
+    // memset(dp, 0, sizeof(dp));
+    for(int i=0; i<n; i++){
+        int x,y; cin >> x >> y;
+        dp[y-1][x-1] = 1;
+        dp[x-1][y-1] = 1;
     }
-    while(m--){
-        int x; cin >> x;
-        int idx = 0;
-        for(int i = 0; i < n; ++i){
-            if(a[i] == x){
-                idx = i + 1;
-                break;
-            }
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            cout << dp[i][j] << " ";
         }
-        cout << idx << " ";
+        cout << endl;
     }
-    return 0;
+    // return 0;
 }
