@@ -1,21 +1,30 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+void reverseStack(stack<int>& s){
+    if(s.empty()) return;
+    int x = s.top(); s.pop();
+    reverseStack(s);
+    s.push(x);
+}
+
 int main(){
-    int t; cin >> t; 
-    cin.ignore();
+    int t; cin >> t;
     while(t--){
-        string s; getline(cin,s);
-        string res;
-        stack<string> st;
-        stringstream ss(s);
-        while(ss >> res){
-            st.push(res);
+        int n; cin >> n;
+        stack<int> s;
+        for(int i=0; i<n; i++){
+            int x; cin >> x;
+            s.push(x);
         }
-        while(!st.empty()){
-            cout << st.top() << " "; st.pop();
+
+        // dao nguoc 
+        reverseStack(s);
+        while(!s.empty()){
+            cout << s.top() << " "; s.pop();
         }
         cout << endl;
     }
+
     return 0;
 }
