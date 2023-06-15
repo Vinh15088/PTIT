@@ -4,16 +4,15 @@ using namespace std;
 int main(){
     int t; cin >> t;
     while(t--){
-        long long n; cin >> n;
-        int count = 0;
-        queue<long long> q;
+        int n,count = 0; cin >> n;
+        queue<int> q;
         q.push(1);
         while(!q.empty()){
-            long long tmp = q.front(); q.pop();           
-            if(tmp<=n) {
+            int tmp = q.front(); q.pop();
+            if(tmp <= n){
                 count++;
-                q.push(10*tmp);
-                q.push(10*tmp+1);
+                q.push(tmp*10);
+                q.push(tmp*10+1);
             }
             else break;
         }

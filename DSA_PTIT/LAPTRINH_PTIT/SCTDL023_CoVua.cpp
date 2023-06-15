@@ -72,12 +72,12 @@ void Print(){
 
 void Try(int i){
     for(int j=1; j<=N; j++){
-        if(cot[j]==1 && d1[i-j+n]==1 && d2[i+j-1]==1){
-            cot[j] = d1[i-j+n] = d2[i+j-1] = 0;
+        if(cot[j]==1 && d1[i-j+N]==1 && d2[i+j-1]==1){
+            cot[j] = d1[i-j+N] = d2[i+j-1] = 0;
             a[i] = j;
             if(i==N) ++Count;
-            else Try(i+i);
-            cot[j] = d1[i-j+n] = d2[i+j-1] = 1;
+            else Try(i+1);
+            cot[j] = d1[i-j+N] = d2[i+j-1] = 1;
         }
     }
 }

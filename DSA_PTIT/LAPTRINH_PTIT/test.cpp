@@ -1,159 +1,105 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <numeric>
+#include "stdio.h"
+#include "conio.h"
 
-using namespace std;
+typedef struct 
+{
+    int t; 
+    int m;
+} PHANSO;
 
-class PhanSo {
-private:
-    int tu;
-    int mau;
-public:
-    PhanSo(int tu = 0, int mau = 1);
-    PhanSo operator+(const PhanSo &ps) const;
-    PhanSo operator-(const PhanSo &ps) const;
-    PhanSo operator*(const PhanSo &ps) const;
-    PhanSo operator/(const PhanSo &ps) const;
-    bool operator<(const PhanSo &ps) const;
-    bool operator>(const PhanSo &ps) const;
-    bool operator==(const PhanSo &ps) const;
-    friend istream &operator>>(istream &in, PhanSo &ps);
-    friend ostream &operator<<(ostream &out, const PhanSo &ps);
-};
+int InPS(PHANSO ps);
+int CongPS(PHANSO ps1, PHANSO ps2);
+int TruPS(PHANSO ps1, PHANSO ps2);
+int ChiaPS(PHANSO ps1, PHANSO ps2);
+int SoSanh(PHANSO ps1, PHANSO ps2);
+int USCLN(int a, int b);
 
-PhanSo::PhanSo(int tu, int mau) {
-    this->tu = tu;
-    this->mau = mau;
-}
+int main(){
+PHANSO ps1, ps2;
+    ps1.t = 2;
+    ps1.m = 4;
+    ps2.t = 5;
+    ps2.m = 10;
 
-PhanSo PhanSo::operator+(const PhanSo &ps) const {
-    int tuMoi = this->tu * ps.mau + this->mau * ps.tu;
-    int mauMoi = this->mau * ps.mau;
-    return PhanSo(tuMoi, mauMoi);
-}
+    printf("Phan so 1: ");
+    InPS(ps1);
+    printf("Phan so 2: ");
+    InPS(ps2);
 
-PhanSo PhanSo::operator-(const PhanSo &ps) const {
-    int tuMoi = this->tu * ps.mau - this->mau * ps.tu;
-    int mauMoi = this->mau * ps.mau;
-    return PhanSo(tuMoi, mauMoi);
-}
+    printf("Tong hai phan so: ");
+    CongPS(ps1, ps2);
 
-PhanSo PhanSo::operator*(const PhanSo &ps) const {
-    int tuMoi = this->tu * ps.tu;
-    int mauMoi = this->mau * ps.mau;
-    return PhanSo(tuMoi, mauMoi);
-}
+    printf("Hieu hai phan so: ");
+    TruPS(ps1, ps2);
 
-PhanSo PhanSo::operator/(const PhanSo &ps) const {
-    int tuMoi = this->tu * ps.mau;
-    int mauMoi = this->mau * ps.tu;
-    return PhanSo(tuMoi, mauMoi);
-}
+    printf("Tich hai phan so: ");
+    ChiaPS(ps1, ps2);
 
-bool PhanSo::operator<(const PhanSo &ps) const {
-    return (this->tu * ps.mau < ps.tu * this->mau);
-}
+    printf("So sanh hai phan so: ");
+    SoSanh(ps1, ps2);
 
-bool PhanSo::operator>(const PhanSo &ps) const {
-    return (this->tu * ps.mau > ps.tu * this->mau);
-}
-
-bool PhanSo::operator==(const PhanSo &ps) const {
-    return (this->tu * ps.mau == ps.tu * this->mau);
-}
-
-istream &operator>>(istream &in, PhanSo &ps) {
-    cout << "Nhap tu so: ";
-    in >> ps.tu;
-    cout << "Nhap mau so: ";
-    in >> ps.mau;
-    return in;
-}
-
-ostream &operator<<(ostream &out, const PhanSo &ps) {
-    out << ps.tu << "/" << ps.mau;
-    return out;
-}
-
-class DSPhanSo {
-    private:
-        vector<PhanSo> ds;
-    public:
-    void nhap();
-    PhanSo tong() const;
-    PhanSo max() const;
-    PhanSo min() const;
-    void sapXepTang();
-    void sapXepGiam();
-    void xuat() const;
-};
-
-void DSPhanSo::nhap() {
-    int n;
-    cout << "Nhap so luong phan so: ";
-    cin >> n;
-    ds.reserve(n);
-    for (int i = 0; i < n; i++) {
-        cout << "Nhap phan so thu " << i+1 << endl;
-        PhanSo ps;
-        cin >> ps;
-        ds.push_back(ps);
-    }
-}
-
-PhanSo DSPhanSo::tong() const {
-    return accumulate(ds.begin(), ds.end(), PhanSo(0, 1));
-}
-
-PhanSo DSPhanSo::max() const {
-    return *max_element(ds.begin(), ds.end());
-}
-
-PhanSo DSPhanSo::min() const {
-    return *min_element(ds.begin(), ds.end());
-}
-
-void DSPhanSo::sapXepTang() {
-    for (int i = 0; i < ds.size() - 1; i++) {
-        for (int j = i + 1; j < ds.size(); j++) {
-            if (ds[i] > ds[j]) {
-                swap(ds[i], ds[j]);
-            }
-        }
-    }
-}
-
-void DSPhanSo::sapXepGiam() {
-    for (int i = 0; i < ds.size() - 1; i++) {
-        for (int j = i + 1; j < ds.size(); j++) {
-            if (ds[i] < ds[j]) {
-                swap(ds[i], ds[j]);
-            }
-        }
-    }
-}
-
-void DSPhanSo::xuat() const {
-    cout << "Danh sach phan so: ";
-    for (int i = 0; i < ds.size(); i++) {
-        cout << ds[i] << " ";
-    }
-    cout << endl;
-}
-
-int main() {
-    DSPhanSo dsps;
-    dsps.nhap();
-    dsps.xuat();
-    cout << "Tong cac phan so: " << dsps.tong() << endl;
-    cout << "Phan so lon nhat: " << dsps.max() << endl;
-    cout << "Phan so nho nhat: " << dsps.min() << endl;
-    cout << "Danh sach phan so tang dan: ";
-    dsps.sapXepTang();
-    dsps.xuat();
-    cout << "Danh sach phan so giam dan: ";
-    dsps.sapXepGiam();
-    dsps.xuat();
+    getch();
     return 0;
+}
+
+int InPS(PHANSO ps) {
+    printf("%d/%d\n", ps.t, ps.m);
+    return 0;
+}
+
+int CongPS(PHANSO ps1, PHANSO ps2) {
+    PHANSO tong;
+    tong.t = ps1.t * ps2.m + ps2.t * ps1.m;
+    tong.m = ps1.m * ps2.m;
+    int ucln = USCLN(tong.t, tong.m);
+    tong.t /= ucln;
+    tong.m /= ucln;
+    InPS(tong);
+   return 0;
+}
+
+int TruPS(PHANSO ps1, PHANSO ps2) {
+    PHANSO hieu;
+    hieu.t = ps1.t * ps2.m - ps2.t * ps1.m;
+    hieu.m = ps1.m * ps2.m;
+    int ucln = USCLN(hieu.t, hieu.m);
+    hieu.t /= ucln;
+    hieu.m /= ucln;
+    InPS(hieu);
+    return 0;
+}
+
+int ChiaPS(PHANSO ps1, PHANSO ps2) {
+    PHANSO thuong;
+    thuong.t = ps1.t * ps2.m;
+    thuong.m = ps1.m * ps2.t;
+    int ucln = USCLN(thuong.t, thuong.m);
+    thuong.t /= ucln;
+    thuong.m /= ucln;
+    InPS(thuong);
+    return 0;
+}
+
+int SoSanh(PHANSO ps1, PHANSO ps2) {
+    PHANSO hieu;
+    hieu.t = ps1.t * ps2.m - ps2.t * ps1.m;
+    hieu.m = ps1.m * ps2.m;
+    if (hieu.t > 0) {
+        printf("%d/%d > %d/%d\n", ps1.t, ps1.m, ps2.t, ps2.m);
+    } else if (hieu.t < 0) {
+        printf("%d/%d < %d/%d\n", ps1.t, ps1.m, ps2.t, ps2.m);
+    } else {
+        printf("%d/%d = %d/%d\n", ps1.t, ps1.m, ps2.t, ps2.m);
+    }
+    return 0;
+} 
+
+int USCLN(int a, int b) {
+    int r;
+    while (b != 0) {
+        r = a % b;
+        a = b;
+        b = r;
+    }
+    return a;
 }

@@ -13,8 +13,7 @@ int main(){
                     cout << "NO";
                     return 0;
                 }
-                char c = st.top();
-                st.pop();
+                char c = st.top(); st.pop();               
                 if((s[i] == ')' && c != '(') || (s[i] == ']' && c != '[') || (s[i] == '}' && c != '{')) {
                     cout << "NO";
                     return 0;
